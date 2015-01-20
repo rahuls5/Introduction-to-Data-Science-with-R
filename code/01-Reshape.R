@@ -14,12 +14,22 @@ raw <- read.csv("data/pew.csv", check.names = F)
 head(raw)
 
 library(reshape2)
+
+#Melt makes the data tidy by transposing the data, pivoting the data
+#id is the column which should be kept the same
+#It will be kept as the column on which the data is pivoted
+
 tidy <- melt(raw, id = "religion")
+
+#The columns of melt return the names as 
+#"variable"- Variable which is kept the same
+#"value"- Value is the column which is re-distributed
 
 head(raw)
 head(tidy)
 
 names(tidy) <- c("religion", "income", "n")
+
 tidy <- melt(raw, id = "religion", 
   variable.name = "income", value.name = "n")
 
