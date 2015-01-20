@@ -6,6 +6,9 @@
 
 # Values in column names 
 
+setwd("C:/Users/Rahul/Documents/Oreilly/Intro_to_DS_with_R/Introduction-to-Data-Science-with-R")
+getwd()
+
 raw <- read.csv("data/pew.csv", check.names = F)
 
 head(raw)
