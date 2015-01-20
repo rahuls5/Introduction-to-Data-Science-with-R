@@ -28,20 +28,31 @@ tidy <- melt(raw, id = "religion")
 head(raw)
 head(tidy)
 
+#Rename the columns after melt
 names(tidy) <- c("religion", "income", "n")
 
+#Renae the column in the melt statement
 tidy <- melt(raw, id = "religion", 
   variable.name = "income", value.name = "n")
 
-# Variable names in cells
 
+
+# Variable names in cells
+#Each column is labeled with a day number
+cat('\014')
+#rm(list=ls(all=TRUE))
+rm(list=ls())
+# Your Turn
 raw <- read.delim("data/weather.txt", check.names = F, na.strings = ".")
 
-# Your Turn
 # ------------------------------------------
 raw <- melt(raw, 
   id = c("year", "month", "element"),
   variable.name = "day", na.rm = TRUE)
+
+str(raw)
+#day is a character factor with levels
+#convert day to numeric
 raw$day <- as.numeric(as.character(raw$day))
 raw <- raw[, c("year", "month", "day", "element", "value")]
 # ------------------------------------------
