@@ -6,58 +6,57 @@
 
 # Values in column names 
 
-setwd("C:/Users/Rahul/Documents/Oreilly/Intro_to_DS_with_R/Introduction-to-Data-Science-with-R")
-getwd()
-
 raw <- read.csv("data/pew.csv", check.names = F)
 
 head(raw)
 
 library(reshape2)
-
-#Melt makes the data tidy by transposing the data, pivoting the data
-#id is the column which should be kept the same
-#It will be kept as the column on which the data is pivoted
-
 tidy <- melt(raw, id = "religion")
-
-#The columns of melt return the names as 
-#"variable"- Variable which is kept the same
-#"value"- Value is the column which is re-distributed
 
 head(raw)
 head(tidy)
 
-#Rename the columns after melt
 names(tidy) <- c("religion", "income", "n")
-
-#Renae the column in the melt statement
 tidy <- melt(raw, id = "religion", 
   variable.name = "income", value.name = "n")
 
-
-
 # Variable names in cells
-#Each column is labeled with a day number
+
 cat('\014')
-#rm(list=ls(all=TRUE))
-rm(list=ls())
-# Your Turn
+getwd()
+setwd("/prod/user/home/xtl476/ds_w_R/")
+
+# check.names=F ensures that R does not change the column names
+# if the column names contain $ sign, R may change the headers
+# NAs are denoted by . in the dataset, na.strings tells R to treat
+# . as NA
+
 raw <- read.delim("data/weather.txt", check.names = F, na.strings = ".")
 
+# Your Turn
+
 # ------------------------------------------
+
+#Pivot the data on multiple columns
+#remove the NAs from the data
+
 raw <- melt(raw, 
   id = c("year", "month", "element"),
   variable.name = "day", na.rm = TRUE)
 
-str(raw)
-#day is a character factor with levels
-#convert day to numeric
+#Convert the day to numeric
 raw$day <- as.numeric(as.character(raw$day))
+
+# Change the column order in the dataframe
+
 raw <- raw[, c("year", "month", "day", "element", "value")]
 # ------------------------------------------
 
 head(raw)
+
+#Change data from rows to columns
+# Elements column values are used for column headers
+# Value.var ="value" makes data re-distribute
 
 tidy <- dcast(raw, year + month + day ~ element, 
   value.var = "value")
@@ -77,8 +76,8 @@ head(tidy)
 tidy <- dcast(tidy, class + age + gender ~ fate, 
   value.var = "value")
 head(tidy)
-titanic$rate <- round(titanic$survived / 
-  (titanic$survived + titanic$perished), 2)
+tidy$rate <- round(tidy$survived / 
+  (tidy$survived + tidy$perished), 2)
 head(tidy)
 # ------------------------------------------
 
